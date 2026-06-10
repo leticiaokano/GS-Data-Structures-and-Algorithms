@@ -1,0 +1,102 @@
+#include <stdio.h>
+
+float temperatura = 0;
+int energia = 0;
+int comunicacao = 1;
+
+void inserirDados() {
+    printf("\nTemperatura da nave: ");
+    scanf("%f", &temperatura);
+ 
+do {
+    printf("Nivel de energia (0-100): ");
+    scanf("%d", &energia);
+
+    if (energia < 0 || energia > 100) {
+        printf("Erro! Digite um valor entre 0 e 100.\n");
+    }
+
+} while (energia < 0 || energia > 100);
+
+    do {
+    printf("Comunicacao (1=OK / 0=Falha): ");
+    scanf("%d", &comunicacao);
+
+    if (comunicacao != 0 && comunicacao != 1) {
+        printf("Erro! Digite apenas 0 ou 1.\n");
+    }
+
+} while (comunicacao != 0 && comunicacao != 1);
+}
+
+void visualizarStatus() {
+    printf("\n=== STATUS DA MISSAO ===\n");
+    printf("Temperatura: %.1f C\n", temperatura);
+    printf("Energia: %d%%\n", energia);
+    printf("Comunicacao: %d\n", comunicacao);
+}
+void executarAnalise() {
+
+    printf("\n=== ANALISE ===\n");
+
+    if (temperatura > 80) {
+        printf("ALERTA: Superaquecimento!\n");
+    }
+
+    if (energia < 20) {
+        printf("ALERTA: Economia de energia!\n");
+    }
+
+    if (comunicacao == 0) {
+        printf("ALERTA: Falha de comunicacao!\n");
+    }
+
+    if (temperatura <= 80 &&
+        energia >= 20 &&
+        comunicacao == 1) {
+
+        printf("Missao operando normalmente.\n");
+    }
+}
+
+int main() {
+
+    int opcao;
+
+    do {
+
+        printf("\n");
+        printf("===== MISSION CONTROL =====\n");
+        printf("1 - Inserir Dados\n");
+        printf("2 - Visualizar Status\n");
+        printf("3 - Executar Analise\n");
+        printf("0 - Encerrar\n");
+        printf("Opcao: ");
+        scanf("%d", &opcao);
+
+        switch(opcao) {
+
+            case 1:
+                inserirDados();
+                break;
+
+            case 2:
+                visualizarStatus();
+                break;
+
+            case 3:
+                executarAnalise();
+                break;
+
+            case 0:
+                printf("Sistema encerrado.\n");
+                break;
+
+            default:
+                printf("Opcao invalida!\n");
+        }
+
+    } while(opcao != 0);
+
+    return 0;
+}
